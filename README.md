@@ -23,5 +23,5 @@ var nlu = new NaturalLanguageUnderstandingV1({
 ## Iniciar o servidor
 
 ```
-$ node watson.js
+$ pm2 start watson.js
 ```
