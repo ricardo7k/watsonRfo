@@ -7,8 +7,8 @@ const fs = require('fs');
 const NaturalLanguageUnderstandingV1 = require('watson-developer-cloud/natural-language-understanding/v1.js');
 
 var nlu = new NaturalLanguageUnderstandingV1({
-  username: "",
-  password: "",
+  username: " ",
+  password: " ",
   version_date: NaturalLanguageUnderstandingV1.VERSION_DATE_2017_02_27
 });
 
