@@ -22,8 +22,8 @@ var language_translator = new LanguageTranslatorV2(
 );
 
 var nlu = new NaturalLanguageUnderstandingV1({
-  username: "c21bfce9-6722-4da2-b449-a024a74a4087",
-  password: "ZXOQcXYWBWZe",
+  username: "",
+  password: "",
   version_date: NaturalLanguageUnderstandingV1.VERSION_DATE_2017_02_27
 });
 
