@@ -12,5 +12,19 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Caca Ferreira",
-  "license": "ISC"
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ricardo7k/watsonRfo.git"
+  },
+  "keywords": [
+    "Watson",
+    "Rfo",
+    "Language",
+    "Understanding"
+  ],
+  "bugs": {
+    "url": "https://github.com/ricardo7k/watsonRfo/issues"
+  },
+  "homepage": "https://github.com/ricardo7k/watsonRfo#readme"
 }
