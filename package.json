@@ -4,12 +4,12 @@
   "description": "Watson Rfo",
   "main": "watson.js",
   "dependencies": {
+    "cors": "^2.8.1",
+    "express": "^4.15.2",
     "httpdispatcher": "^2.0.1",
-    "watson-developer-cloud": "^2.27.1",
+    "querystring": "^0.2.0",
     "request-promise": "^4.2.0",
-    "cors":"^2.8.1",
-    "express":"^2.8.1",
-    "querystring":"^0.2.0"
+    "watson-developer-cloud": "^2.27.1"
   },
   "devDependencies": {},
   "scripts": {
