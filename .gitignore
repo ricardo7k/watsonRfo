@@ -272,3 +272,5 @@ jspm_packages
 # Project-level settings
 /.tgitconfig
 
+# RFO .config
+.configRfo
