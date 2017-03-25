@@ -1,7 +1,6 @@
 'use strict';
 
 const NaturalLanguageUnderstandingV1 = require('watson-developer-cloud/natural-language-understanding/v1.js');
-const LanguageTranslatorV2 = require('watson-developer-cloud/language-translator/v2');
 const HttpDispatcher = require('httpdispatcher');
 const dispatcher     = new HttpDispatcher();
 const http = require('http')
@@ -13,17 +12,9 @@ var querystring = require('querystring');
 var app = express();
 app.use(cors());
 
-var language_translator = new LanguageTranslatorV2(
-{
-  username: '',
-  password: '',
-  url: 'https://gateway.watsonplatform.net/language-translator/api/'
-}
-);
-
 var nlu = new NaturalLanguageUnderstandingV1({
-  username: "c21bfce9-6722-4da2-b449-a024a74a4087",
-  password: "ZXOQcXYWBWZe",
+  username: "",
+  password: "",
   version_date: NaturalLanguageUnderstandingV1.VERSION_DATE_2017_02_27
 });
 
@@ -59,7 +50,7 @@ dispatcher.onPost("/send",function(req, res){
     else content = JSON.stringify(response, null, 2);
     var arr = [
       response.sentiment.document.label,
-      response.categories[0].label.substring(1,response.categories[0].label.length).split("/").join(", ")
+      response.categories[0]?response.categories[0].label.substring(1,response.categories[0].label.length).split("/").join(", "):"undefined topic"
     ];
 
     var options = {
@@ -74,7 +65,7 @@ dispatcher.onPost("/send",function(req, res){
       response.on('data', function (chunk) {
         chunk = JSON.parse(chunk);
         var content = chunk.translations[0].translation.split(";");
-        var frase = "Estou aprendendo com você, aparentemente você está falando algo " + content[0] + " sobre " + content[1] + "é isto?";
+        var frase = "Estou aprendendo com você, aparentemente você está falando algo " + content[0] + " sobre" + content[1] + ", é isto?";
         res.writeHeader(200, {"Content-Type": "text/plain"});
         res.write(frase);
         res.end();
