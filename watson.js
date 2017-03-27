@@ -35,8 +35,9 @@ dispatcher.onGet("/",function(req, res){
 });
 
 dispatcher.onPost("/send",function(req, res){
+  var uid = req.params.id;
   nlu.analyze({
-    'html': req.params.text,
+    'html': req.params.text + "["+req.params.id+"]",
     'features': {
       'emotion': {},
       'concepts': {},
@@ -48,6 +49,7 @@ dispatcher.onPost("/send",function(req, res){
     var content = "";
     if (err) content = err;
     else content = JSON.stringify(response, null, 2);
+    
     var arr = [
       response.sentiment.document.label,
       response.categories[0]?response.categories[0].label.substring(1,response.categories[0].label.length).split("/").join(", "):"undefined topic"
@@ -55,7 +57,7 @@ dispatcher.onPost("/send",function(req, res){
 
     var options = {
       host: 'localhost',
-      port: 8083,
+      port: 8084,
       path: '/translate',
       method: 'POST'
     };
@@ -65,14 +67,16 @@ dispatcher.onPost("/send",function(req, res){
       response.on('data', function (chunk) {
         chunk = JSON.parse(chunk);
         var content = chunk.translations[0].translation.split(";");
-        var frase = "Estou aprendendo com você, aparentemente você está falando algo " + content[0] + " sobre" + content[1] + ", é isto?";
+        var frase = "Estou aprendendo com você, aparentemente você está falando algo " + content[0] + " sobre" + content[1] + ", é isto?" + "||" + uid;
+
         res.writeHeader(200, {"Content-Type": "text/plain"});
         res.write(frase);
         res.end();
       });
     });
     httpreq.write(querystring.stringify({
-      text: arr[0] + ";" + arr[1]
+      text: arr[0] + ";" + arr[1],
+      uid: uid
     }));
     httpreq.end();
   });
@@ -81,4 +85,3 @@ dispatcher.onPost("/send",function(req, res){
 http.createServer(handleRequest).listen(8082, function(){
     console.log("Server listening on: http://localhost:%s", 8082);
 });
-
